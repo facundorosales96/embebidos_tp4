@@ -1,8 +1,10 @@
-# Plantilla de Proyectos
+# Trabajo Practico N°4
 
------
++ Alumno: Rosales, Facundo Ezequiel
++ Carrera: Ing. Electronica
++ Asignatura: Sistemas Embebidos
 
-Plantilla de proyectos para trabajos prácticos de Sistemas Embebidos.
+
 
 **Table of Contents**
 
@@ -11,7 +13,7 @@ Plantilla de proyectos para trabajos prácticos de Sistemas Embebidos.
 
 ## Forma de uso
 
-Para utilizar este repositorio deben:
+Para utilizar este repositorio se debe:
 
 1. Crear un fork del repositorio en la página de Github. Esto creará un repositorio independiente propiedad del alumno pero que comparte los primeros commits con este repositorio.
 

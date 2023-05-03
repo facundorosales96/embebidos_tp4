@@ -42,6 +42,7 @@
 
 #include "chip.h"
 #include <stdbool.h>
+#include <digital.h>
 
 /* === Macros definitions ====================================================================== */
 
@@ -183,7 +184,7 @@ int main(void) {
         }
 
         divisor++;
-        if (divisor == 5) {
+        if (divisor == 1) {
             divisor = 0;
             Chip_GPIO_SetPinToggle(LPC_GPIO_PORT, LED_3_GPIO, LED_3_BIT);
         }
