@@ -31,25 +31,46 @@ SPDX-License-Identifier: MIT
 
 #include "digital.h"
 #include "chip.h"
+#include "stdbool.h"
 
 /* === Macros definitions ====================================================================== */
-
+#ifndef OUTPUT_INSTANCES
+#define OUTPUT_INSTANCES 6
+#endif
 /* === Private data type declarations ========================================================== */
 
 /* === Private variable declarations =========================================================== */
 
 /* === Private function declarations =========================================================== */
+digital_output_t DigitalOutputAllocate(void);
 
 /* === Public variable definitions ============================================================= */
 //! Estructura para almacenar el descriptor de cada salida digital
 struct digital_output_s{
     uint8_t port; //!< Puerto GPIO de la salida digital.
     uint8_t pin;  //!< Terminal del puerto GPIO de la salida digital.
+    bool allocated; //!< Bandera que indica si el descriptor esta en uso
 };
 
 /* === Private variable definitions ============================================================ */
 
 /* === Private function implementation ========================================================= */
+digital_output_t DigitalOutputAllocate(void){
+    digital_output_t output = NULL;
+
+    static struct digital_output_s instances[OUTPUT_INSTANCES] = {0};
+
+    for (int i = 0; i < OUTPUT_INSTANCES; i++){
+
+        if(instances[i].allocated){
+
+            instances[i].allocated = true;
+            output = &instances[i];
+            break;
+        }
+    }
+    return output;
+}
 
 /* === Public function implementation ========================================================== */
 digital_output_t DigitalOutputCreate(uint8_t port, uint8_t pin){
