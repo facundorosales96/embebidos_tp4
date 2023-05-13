@@ -37,6 +37,10 @@ SPDX-License-Identifier: MIT
 #ifndef OUTPUT_INSTANCES
 #define OUTPUT_INSTANCES 6
 #endif
+
+#ifndef INPUT_INSTANCES
+#define INPUT_INSTANCES 4
+#endif
 /* === Private data type declarations ========================================================== */
 //! Estructura para almacenar el descriptor de cada salida digital
 struct digital_output_s {
@@ -55,14 +59,14 @@ struct digital_input_s {
 
 /* === Private function declarations =========================================================== */
 digital_output_t DigitalOutputAllocate(void);
+digital_input_t DigitalInputAllocate(void);
 
 /* === Public variable definitions ============================================================= */
 
 /* === Private variable definitions ============================================================ */
 
 /* === Private function implementation ========================================================= */
-digital_output_t
-DigitalOutputAllocate(void) {
+digital_output_t DigitalOutputAllocate(void) {
     digital_output_t output = NULL;
 
     static struct digital_output_s instances[OUTPUT_INSTANCES] = {0};
@@ -79,6 +83,22 @@ DigitalOutputAllocate(void) {
     return output;
 }
 
+digital_input_t DigitalinputAllocate(void) {
+    digital_input_t input = NULL;
+    
+    static struct digital_input_s instances[INPUT_INSTANCES] = {0};
+
+    for(int i = 0; i < INPUT_INSTANCES; i++){
+        
+        if(!instances[i].allocated){
+
+            instances[i].allocated = true;
+            input = &instances[i];
+            break;
+        }
+    }
+    return input;
+}
 /* === Public function implementation ========================================================== */
 
 // salidas
