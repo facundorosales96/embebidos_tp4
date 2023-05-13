@@ -38,24 +38,31 @@ SPDX-License-Identifier: MIT
 #define OUTPUT_INSTANCES 6
 #endif
 /* === Private data type declarations ========================================================== */
-
-/* === Private variable declarations =========================================================== */
-
-/* === Private function declarations =========================================================== */
-digital_output_t DigitalOutputAllocate(void);
-
-/* === Public variable definitions ============================================================= */
 //! Estructura para almacenar el descriptor de cada salida digital
 struct digital_output_s {
     uint8_t port;   //!< Puerto GPIO de la salida digital.
     uint8_t pin;    //!< Terminal del puerto GPIO de la salida digital.
     bool allocated; //!< Bandera que indica si el descriptor esta en uso
 };
+//! Estructura para almacenar el descriptor de cada entrada digital
+
+struct digital_input_s {
+    uint8_t port;
+    uint8_t pin;
+    bool allocated;
+};
+/* === Private variable declarations =========================================================== */
+
+/* === Private function declarations =========================================================== */
+digital_output_t DigitalOutputAllocate(void);
+
+/* === Public variable definitions ============================================================= */
 
 /* === Private variable definitions ============================================================ */
 
 /* === Private function implementation ========================================================= */
-digital_output_t DigitalOutputAllocate(void) {
+digital_output_t
+DigitalOutputAllocate(void) {
     digital_output_t output = NULL;
 
     static struct digital_output_s instances[OUTPUT_INSTANCES] = {0};
@@ -73,17 +80,19 @@ digital_output_t DigitalOutputAllocate(void) {
 }
 
 /* === Public function implementation ========================================================== */
+
+// salidas
+
 digital_output_t DigitalOutputCreate(uint8_t port, uint8_t pin) {
 
     digital_output_t output = DigitalOutputAllocate();
 
-    if(output){
-    output->port = port;
-    output->pin = pin;
+    if (output) {
+        output->port = port;
+        output->pin = pin;
 
-    Chip_GPIO_SetPinState(LPC_GPIO_PORT, output->port, output->pin, false);
-    Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, output->port, output->pin, true);
-
+        Chip_GPIO_SetPinState(LPC_GPIO_PORT, output->port, output->pin, false);
+        Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, output->port, output->pin, true);
     }
 
     return output;
@@ -98,6 +107,24 @@ void DigitalOutputDeactivate(digital_output_t output) {
 }
 void DigitalOutputToggle(digital_output_t output) {
     Chip_GPIO_SetPinToggle(LPC_GPIO_PORT, output->port, output->pin);
+    return;
+}
+
+// entradas
+
+digital_input_t DigitalInputCreate(uint8_t port, uint8_t pin) {
+    return;
+}
+bool DigitalInputGetState(digital_input_t input) {
+    return;
+}
+bool DigitalInputHasChanged(digital_input_t input) {
+    return;
+}
+bool DigitalInputHasActivated(digital_input_t input) {
+    return;
+}
+bool DigitalInputHasDeactivated(digital_input_t input) {
     return;
 }
 
