@@ -113,7 +113,14 @@ void DigitalOutputToggle(digital_output_t output) {
 // entradas
 
 digital_input_t DigitalInputCreate(uint8_t port, uint8_t pin) {
-    return;
+    static struct digital_input_s input;
+
+    input.port = port;
+    input.pin = pin;
+
+    Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, input.port, input.pin, false);
+
+    return &input;
 }
 bool DigitalInputGetState(digital_input_t input) {
     return;
