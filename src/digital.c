@@ -54,6 +54,7 @@ struct digital_input_s {
     uint8_t port;
     uint8_t pin;
     bool allocated;
+    bool last_state;
 };
 /* === Private variable declarations =========================================================== */
 
@@ -83,14 +84,14 @@ digital_output_t DigitalOutputAllocate(void) {
     return output;
 }
 
-digital_input_t DigitalinputAllocate(void) {
+digital_input_t DigitalInputAllocate(void) {
     digital_input_t input = NULL;
-    
+
     static struct digital_input_s instances[INPUT_INSTANCES] = {0};
 
-    for(int i = 0; i < INPUT_INSTANCES; i++){
-        
-        if(!instances[i].allocated){
+    for (int i = 0; i < INPUT_INSTANCES; i++) {
+
+        if (!instances[i].allocated) {
 
             instances[i].allocated = true;
             input = &instances[i];
@@ -133,26 +134,45 @@ void DigitalOutputToggle(digital_output_t output) {
 // entradas
 
 digital_input_t DigitalInputCreate(uint8_t port, uint8_t pin) {
-    static struct digital_input_s input;
 
-    input.port = port;
-    input.pin = pin;
+    digital_input_t input = DigitalInputAllocate();
 
-    Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, input.port, input.pin, false);
+    if (input) {
+        input->port = port;
+        input->pin = pin;
 
-    return &input;
+        Chip_GPIO_SetPinDIR(LPC_GPIO_PORT, input->port, input->pin, false);
+    }
+
+    return input;
 }
 bool DigitalInputGetState(digital_input_t input) {
-    return;
+
+    return !Chip_GPIO_ReadPortBit(LPC_GPIO_PORT, input->port, input->pin);
 }
 bool DigitalInputHasChanged(digital_input_t input) {
-    return;
+
+    bool state = DigitalInputGetState(input);
+    bool resultado = state != input->last_state;
+    input->last_state = state;
+
+    return resultado;
 }
 bool DigitalInputHasActivated(digital_input_t input) {
-    return;
+
+    bool state = DigitalInputGetState(input);
+    bool resultado = state && !input->last_state;
+    input->last_state = state;
+
+    return resultado;
 }
 bool DigitalInputHasDeactivated(digital_input_t input) {
-    return;
+
+    bool state = DigitalInputGetState(input);
+    bool resultado = !state && input->last_state;
+    input->last_state = state;
+
+    return resultado;
 }
 
 /* === End of documentation ==================================================================== */

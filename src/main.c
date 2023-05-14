@@ -133,7 +133,6 @@ int main(void) {
     digital_input_t tec_4;
 
     int divisor = 0;
-    bool current_state, last_state = false;
 
     Chip_SCU_PinMuxSet(LED_R_PORT, LED_R_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_INACT | LED_R_FUNC);
     led_r = DigitalOutputCreate(LED_R_GPIO, LED_R_BIT);
@@ -168,22 +167,20 @@ int main(void) {
     tec_4 = DigitalInputCreate(TEC_4_GPIO, TEC_4_BIT);
 
     while (true) {
-        if (Chip_GPIO_ReadPortBit(LPC_GPIO_PORT, TEC_1_GPIO, TEC_1_BIT) == 0) {
+        if (DigitalInputGetState(tec_1)) {
             DigitalOutputActivate(led_b);
         } else {
             DigitalOutputDeactivate(led_b);
         }
 
-        current_state = (Chip_GPIO_ReadPortBit(LPC_GPIO_PORT, TEC_2_GPIO, TEC_2_BIT) == 0);
-        if ((current_state) && (!last_state)) {
+        if (DigitalInputHasActivated(tec_2)) {
             DigitalOutputToggle(led_1);
         }
-        last_state = current_state;
 
-        if (Chip_GPIO_ReadPortBit(LPC_GPIO_PORT, TEC_3_GPIO, TEC_3_BIT) == 0) {
+        if (DigitalInputGetState(tec_3)) {
             DigitalOutputActivate(led_2);
         }
-        if (Chip_GPIO_ReadPortBit(LPC_GPIO_PORT, TEC_4_GPIO, TEC_4_BIT) == 0) {
+        if (DigitalInputGetState(tec_4)) {
             DigitalOutputDeactivate(led_2);
         }
 
