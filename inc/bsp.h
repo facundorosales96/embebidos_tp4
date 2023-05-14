@@ -31,6 +31,7 @@ SPDX-License-Identifier: MIT
  ** @{ */
 
 /* === Headers files inclusions ================================================================ */
+#include "digital.h"
 
 /* === Cabecera C++ ============================================================================ */
 
@@ -41,10 +42,23 @@ extern "C" {
 /* === Public macros definitions =============================================================== */
 
 /* === Public data type declarations =========================================================== */
+typedef struct board_s{
+    digital_output_t led_1;
+    digital_output_t led_2;
+    digital_output_t led_3;
+    digital_output_t led_r;
+    digital_output_t led_g;
+    digital_output_t led_b;
+    digital_input_t tec_1;
+    digital_input_t tec_2;
+    digital_input_t tec_3;
+    digital_input_t tec_4;
+} const * const board_t;
 
 /* === Public variable declarations ============================================================ */
 
 /* === Public function declarations ============================================================ */
+board_t BoardCreate(void);
 
 /* === End of documentation ==================================================================== */
 

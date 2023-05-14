@@ -121,6 +121,7 @@
 /* === Public function implementation ========================================================= */
 
 int main(void) {
+
     digital_output_t led_1;
     digital_output_t led_2;
     digital_output_t led_3;
@@ -131,7 +132,6 @@ int main(void) {
     digital_input_t tec_2;
     digital_input_t tec_3;
     digital_input_t tec_4;
-
     int divisor = 0;
 
     Chip_SCU_PinMuxSet(LED_R_PORT, LED_R_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_INACT | LED_R_FUNC);
