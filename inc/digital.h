@@ -31,8 +31,10 @@ SPDX-License-Identifier: MIT
  ** @{ */
 
 /* === Headers files inclusions ================================================================ */
+
 #include <stdbool.h>
 #include <stdint.h>
+
 /* === Cabecera C++ ============================================================================ */
 
 #ifdef __cplusplus
@@ -42,22 +44,96 @@ extern "C" {
 /* === Public macros definitions =============================================================== */
 
 /* === Public data type declarations =========================================================== */
+
+//! Puntero al descriptor de las salidas
 typedef struct digital_output_s * digital_output_t;
 
+//! Puntero al descriptor de las entradas
 typedef struct digital_input_s * digital_input_t;
 
 /* === Public variable declarations ============================================================ */
 
 /* === Public function declarations ============================================================ */
+
+/* SALIDAS */
+
+/**
+ * @brief Crea una salida
+ * 
+ * @param port puerto GPIO de la salida
+ * @param pin  terminal del puerto correspondiente
+ * @param inverted indica si trabaja en forma inversa
+ * @return digital_output_t puntero al descriptor de la salida
+ */
 digital_output_t DigitalOutputCreate(uint8_t port, uint8_t pin, bool inverted);
+
+/**
+ * @brief Activa la salida
+ * 
+ * @param output puntero al descriptor de la salida
+ */
 void DigitalOutputActivate(digital_output_t output);
+
+/**
+ * @brief Desactiva la salida
+ * 
+ * @param output puntero al descriptor de la salida
+ */
 void DigitalOutputDeactivate(digital_output_t output);
+
+/**
+ * @brief Cambia el estado de la salida
+ * 
+ * @param output puntero al descriptor de la salida
+ */
 void DigitalOutputToggle(digital_output_t output);
 
+/* ENTRADAS */
+
+/**
+ * @brief Crea una entrada
+ * 
+ * @param port puerto GPIO de la entrada
+ * @param pin  terminal del puerto correspondiente
+ * @param inverted indica si trabaja en forma inversa
+ * @return digital_output_t puntero al descriptor de la entrada
+ */
 digital_input_t DigitalInputCreate(uint8_t port, uint8_t pin, bool inverted);
+
+/**
+ * @brief Comprueba el estado de la entrada
+ * 
+ * @param input puntero al descriptor de la entrada
+ * @return true entrada activa
+ * @return false entrada inactiva
+ */
 bool DigitalInputGetState(digital_input_t input);
+
+/**
+ * @brief Comprueba si cambio el estado de la entrada
+ * 
+ * @param input puntero al descriptor de la entrada
+ * @return true la entrada cambio
+ * @return false la entrada no cambio
+ */
 bool DigitalInputHasChanged(digital_input_t input);
+
+/**
+ * @brief Comprueba si se activo la entrada
+ * 
+ * @param input puntero al descriptor de la entrada
+ * @return true se activo
+ * @return false no se activo
+ */
 bool DigitalInputHasActivated(digital_input_t input);
+
+/**
+ * @brief Comprueba si se desactivo la entrada
+ * 
+ * @param input puntero al descriptor de la entrada
+ * @return true se desactivo
+ * @return false no se desactivo
+ */
 bool DigitalInputHasDeactivated(digital_input_t input);
 
 /* === End of documentation ==================================================================== */

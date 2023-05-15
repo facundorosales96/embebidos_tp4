@@ -42,25 +42,27 @@ SPDX-License-Identifier: MIT
 #define INPUT_INSTANCES 4
 #endif
 /* === Private data type declarations ========================================================== */
+
 //! Estructura para almacenar el descriptor de cada salida digital
 struct digital_output_s {
     uint8_t port;   //!< Puerto GPIO de la salida digital.
     uint8_t pin;    //!< Terminal del puerto GPIO de la salida digital.
     bool allocated; //!< Bandera que indica si el descriptor esta en uso
-    bool inverted;
+    bool inverted;  //!< Bandera que indica si trabaja de forma inversa
 };
-//! Estructura para almacenar el descriptor de cada entrada digital
 
+//! Estructura para almacenar el descriptor de cada entrada digital
 struct digital_input_s {
-    uint8_t port;
-    uint8_t pin;
-    bool allocated;
-    bool last_state;
-    bool inverted;
+    uint8_t port;    //!< Puerto GPIO de la entrada digital.
+    uint8_t pin;     //!< Terminal del puerto GPIO de la entrada digital.
+    bool allocated;  //!< Bandera que indica si el descriptor esta en uso
+    bool last_state; //!< Bandera con el ultimo estado de la entrada
+    bool inverted;   //!< Bandera que indica si trabaja de forma inversa
 };
 /* === Private variable declarations =========================================================== */
 
 /* === Private function declarations =========================================================== */
+
 digital_output_t DigitalOutputAllocate(void);
 digital_input_t DigitalInputAllocate(void);
 
@@ -69,6 +71,7 @@ digital_input_t DigitalInputAllocate(void);
 /* === Private variable definitions ============================================================ */
 
 /* === Private function implementation ========================================================= */
+
 digital_output_t DigitalOutputAllocate(void) {
     digital_output_t output = NULL;
 
@@ -104,7 +107,7 @@ digital_input_t DigitalInputAllocate(void) {
 }
 /* === Public function implementation ========================================================== */
 
-// salidas
+/* SALIDAS */
 
 digital_output_t DigitalOutputCreate(uint8_t port, uint8_t pin, bool inverted) {
 
@@ -134,7 +137,7 @@ void DigitalOutputToggle(digital_output_t output) {
     return;
 }
 
-// entradas
+/* ENTRADAS */
 
 digital_input_t DigitalInputCreate(uint8_t port, uint8_t pin, bool inverted) {
 

@@ -1,5 +1,5 @@
 /************************************************************************************************
-Copyright (c) 2023, <facundoerosales@gmail.com>
+Copyright (c) 2023, Rosales Facundo Ezequiel <facundoerosales@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -22,15 +22,16 @@ SPDX-License-Identifier: MIT
 #ifndef BSP_H
 #define BSP_H
 
-/** \brief Brief description of the file
+/** \brief Board Hardware Support (BSP)
  **
- ** Full file description
+ ** Proporciona la configuracion de entradas y salidas de la placa EDUCIAA-NXP
  **
- ** \addtogroup name Module denomination
- ** \brief Brief description of the module
+ ** \addtogroup bsp BSP
+ ** \brief HAL
  ** @{ */
 
 /* === Headers files inclusions ================================================================ */
+
 #include "digital.h"
 
 /* === Cabecera C++ ============================================================================ */
@@ -42,22 +43,32 @@ extern "C" {
 /* === Public macros definitions =============================================================== */
 
 /* === Public data type declarations =========================================================== */
+
+/**
+ * @brief Descriptores de la placa
+ *  tipo de dato struct que almacena punteros a los descriptores de entradas y salidas
+ */
 typedef struct board_s{
-    digital_output_t led_1;
-    digital_output_t led_2;
-    digital_output_t led_3;
-    digital_output_t led_r;
-    digital_output_t led_g;
-    digital_output_t led_b;
-    digital_input_t tec_1;
-    digital_input_t tec_2;
-    digital_input_t tec_3;
-    digital_input_t tec_4;
+    digital_output_t led_1; //!< Puntero a descriptor de la salida led_1
+    digital_output_t led_2; //!< Puntero a descriptor de la salida led_2
+    digital_output_t led_3; //!< Puntero a descriptor de la salida led_3
+    digital_output_t led_r; //!< Puntero a descriptor de la salida led_r
+    digital_output_t led_g; //!< Puntero a descriptor de la salida led_g
+    digital_output_t led_b; //!< Puntero a descriptor de la salida led_b
+    digital_input_t tec_1;  //!< Puntero a descriptor de la entrada tec_1
+    digital_input_t tec_2;  //!< Puntero a descriptor de la entrada tec_2
+    digital_input_t tec_3;  //!< Puntero a descriptor de la entrada tec_3
+    digital_input_t tec_4;  //!< Puntero a descriptor de la entrada tec_4
 } const * const board_t;
 
 /* === Public variable declarations ============================================================ */
 
 /* === Public function declarations ============================================================ */
+/**
+ * @brief Crea descriptor de la Placa
+ * 
+ * @return board_t
+ */
 board_t BoardCreate(void);
 
 /* === End of documentation ==================================================================== */

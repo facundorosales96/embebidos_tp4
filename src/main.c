@@ -2,7 +2,7 @@
  * Facultad de Ciencias Exactas y Tecnología
  * Universidad Nacional de Tucuman
  * http://www.microprocesadores.unt.edu.ar/
- * Copyright 2022, Esteban Volentini <evolentini@herrera.unt.edu.ar>
+ * Copyright 2023, Rosales Facundo Ezequiel <facundoerosales@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,10 +32,10 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/** \brief Simple sample of use LPC HAL gpio functions
+/** \brief Implementacion de HAL y BSP
  **
- ** \addtogroup samples Sample projects
- ** \brief Sample projects to use as a starting point
+ ** \addtogroup main MAIN
+ ** \brief Gestion de entradas y salidas digitales
  ** @{ */
 
 /* === Headers files inclusions =============================================================== */

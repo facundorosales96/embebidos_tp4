@@ -1,5 +1,5 @@
 /************************************************************************************************
-Copyright (c) 2023, <facundoerosales@gmail.com>
+Copyright (c) 2023, Rosales Facundo Ezequiel <facundoerosales@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -19,12 +19,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 SPDX-License-Identifier: MIT
 *************************************************************************************************/
 
-/** \brief Brief description of the file
+/** \brief Board Hardware Support (BSP)
  **
- ** Full file description
+ ** Proporciona la configuracion de entradas y salidas digitales. Placa EDUCIAA-NXP
  **
- ** \addtogroup name Module denomination
- ** \brief Brief description of the module
+ ** \addtogroup bsp BSP
+ ** \brief
  ** @{ */
 
 /* === Headers files inclusions =============================================================== */
@@ -33,6 +33,7 @@ SPDX-License-Identifier: MIT
 #include "chip.h"
 
 /* === Macros definitions ====================================================================== */
+
 #define LED_R_PORT 2
 #define LED_R_PIN 0
 #define LED_R_FUNC SCU_MODE_FUNC4
@@ -95,7 +96,9 @@ SPDX-License-Identifier: MIT
 /* === Private data type declarations ========================================================== */
 
 /* === Private variable declarations =========================================================== */
+
 static struct board_s board = {0};
+
 /* === Private function declarations =========================================================== */
 
 /* === Public variable definitions ============================================================= */
@@ -105,6 +108,7 @@ static struct board_s board = {0};
 /* === Private function implementation ========================================================= */
 
 /* === Public function implementation ========================================================== */
+
 board_t BoardCreate(void) {
     Chip_SCU_PinMuxSet(LED_R_PORT, LED_R_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_INACT | LED_R_FUNC);
     board.led_r = DigitalOutputCreate(LED_R_GPIO, LED_R_BIT, false);
